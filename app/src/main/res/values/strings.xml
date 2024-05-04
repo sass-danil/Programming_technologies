@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">ProgramTech</string>
+    <string name="app_name" translatable="false">ProgramTech</string>
+    <string name="account" translatable="false">Личный Аккаунт</string>
+    <string name="products_text" translatable="false">Продукты</string>
+    <string name="recipe_text" translatable="false">Рецепты</string>
+    <string name="note_text" translatable="false">Заметки</string>
+    <string name="products_name">Продукты</string>
+    <string name="milk">Молоко</string>
+    <string name="date">12.12.2012</string>
+    <string name="count">12</string>
+    <string name="product_setting">Настройка</string>
 </resources>

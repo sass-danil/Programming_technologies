@@ -3,49 +3,68 @@ package com.example.programtech;
 
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.programtech.adapter.FilterAdapter;
+import com.example.programtech.adapter.ProductAdapter;
+import com.example.programtech.model.Filter;
+import com.example.programtech.model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView filterRecycler, productRecycler;
+    FilterAdapter filterAdapter;
+    ProductAdapter productAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        List<Filter> filterList = new ArrayList<>();
+        filterList.add(new com.example.programtech.model.Filter(1,"По Количеству"));
+        filterList.add(new com.example.programtech.model.Filter(2,"По Сроку Годности"));
+
+        setFilterRecycler(filterList);
+
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(new com.example.programtech.model.Product(1,"milk_svgrepo_com.xml", "Молоко", "12.12.2012", "#0A887D", 4));
+        productList.add(new com.example.programtech.model.Product(2,"egg", "Яйца", "01.07.1917", "#0A887D",4));
+
+        setProductRecycler(productList);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu,menu);
-        return super.onCreateOptionsMenu(menu);
+    private void setProductRecycler(List<Product> productList) {
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+
+        productRecycler = findViewById(R.id.Product_Recycler);
+        productRecycler.setLayoutManager(layoutManager);
+
+        productAdapter = new ProductAdapter(this, productList);
+        productRecycler.setAdapter(productAdapter);
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
 
-        if(id == R.id.by_count){
-            Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.death_date){
-            Toast.makeText(this, "666", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void setFilterRecycler(List<Filter> filterList) {
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+
+        filterRecycler = findViewById(R.id.filterRecycler);
+        filterRecycler.setLayoutManager(layoutManager);
+
+        filterAdapter = new FilterAdapter(this,filterList);
+        filterRecycler.setAdapter(filterAdapter);
     }
+
 }
