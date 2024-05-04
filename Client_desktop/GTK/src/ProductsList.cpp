@@ -7,6 +7,7 @@
 
 #include "ProductParser.hpp"
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include "IconParser.hpp"
 
@@ -57,10 +58,31 @@ void Products_List::add_product(Product* product){
 }
 
 
+void Products_List::delete_product(Product* product){
+	unsigned long int i;
+	for (i = 0; i < this->products.size(); i++){
+		if (this->products[i] == product){
+			Product* temp_prod = this->products.back();
+			this->products.back() = product;
+			this->products[i] = temp_prod;
+			this->products.pop_back();
+			gtk_widget_destroy(product->get_box());
+			this->update_gui();
+			return;
+		}
+	}
+}
+
+
+extern GtkWidget* products_list_box;
 void Products_List::update_gui(){
 	unsigned long int i;
 	for (i = 0; i < this->products.size(); i++){
-		this->products[i]->update_box();
+		if (gtk_widget_get_parent(this->products[i]->get_box()) == products_list_box)
+			gtk_box_reorder_child(GTK_BOX(products_list_box), this->products[i]->get_box(), i);
+		else{
+			this->products[i]->update_box();
+		}
 	}
 }
 
@@ -71,6 +93,57 @@ void Products_List::print_into_console(){
 	for (i = 0; i < this->products.size(); i++){
 		this->products[i]->print_into_console();
 	}
+}
+
+
+void Products_List::print_into_file(const char* filename){
+	std::fstream f;
+	f.open(filename, std::fstream::out);
+	std::cout << "Saving products to file " << filename << std::endl;
+	if (!(f.is_open())){
+		std::cout << "Can't open file " << filename << std::endl;
+	}
+
+	f << "<products>" << std::endl;
+	int counter = 0;
+	tm date;
+	unsigned long int i;
+	for (i = 0; i < this->products.size(); i++){
+		f << "<product_name>" << std::endl;
+		f << this->products[i]->get_name() << std::endl;
+		f << "</product_name>" << std::endl;
+
+		f << "<icon_ID>" << std::endl;
+		f << this->products[i]->get_icon_id() << std::endl;
+		f << "</icon_ID>" << std::endl;
+
+		f << "<product_ID>" << std::endl;
+		f << counter++ << std::endl;
+		f << "</product_ID>" << std::endl;
+
+		f << "<unit_ID>" << std::endl;
+		f << (int)this->products[i]->get_unit() << std::endl;
+		f << "</unit_ID>" << std::endl;
+
+		f << "<count>" << std::endl;
+		f << this->products[i]->get_count() << std::endl;
+		f << "</count>" << std::endl;
+
+		f << "<add_date>" << std::endl;
+		date = this->products[i]->get_add_date();
+		f << date.tm_mday << "." << date.tm_mon << "." << date.tm_year + 1900 << std::endl;
+		f << "</add_date>" << std::endl;
+
+		f << "<death_date>" << std::endl;
+		date = this->products[i]->get_death_date();
+		f << date.tm_mday << "." << date.tm_mon << "." << date.tm_year + 1900 << std::endl;
+		f << "</death_date>" << std::endl;
+
+		f << std::endl;
+	}
+
+	f << "</products>" << std::endl;
+	f.close();
 }
 
 

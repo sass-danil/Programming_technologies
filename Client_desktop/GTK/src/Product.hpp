@@ -29,6 +29,12 @@ class Product {
 
 		char get_unit(){ return this->unit; }
 
+		tm get_add_date(){ return this->add_date; }
+
+		tm get_death_date(){ return this->death_date; }
+
+		GtkWidget* get_combo(){ return this->combo; }
+
 
 		void set_id(int id){ this->product_id = id;}
 
@@ -43,6 +49,10 @@ class Product {
 		void set_add_date(std::string date);
 
 		void set_death_date(std::string date);
+
+		void set_label_text(const char* text);
+
+		void set_name(const char* text);
 
 
 
@@ -59,10 +69,13 @@ class Product {
 	private:
 		GtkWidget* box;
 		GtkWidget* icon;
+		GtkWidget* image;
 		GtkWidget* product_label;
 		GtkWidget* add_date_label;
 		GtkWidget* death_date_label;
 		GtkWidget* count_label;
+		GtkWidget* combo;
+		GtkWidget* alarm_icon = nullptr;
 		std::vector<std::string> product_names;
 		int icon_id;
 		int product_id;

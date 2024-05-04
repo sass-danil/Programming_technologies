@@ -1,4 +1,14 @@
 <filename>
+unknown.png
+</filename>
+<textlines>
+-
+</textlines>
+<enum_number>
+0
+</enum_number>
+
+<filename>
 bread.png
 </filename>
 <textlines>
@@ -18,6 +28,8 @@ milk.png
 малоко
 молако
 малако
+коровье_молоко
+молоко_коровье
 </textlines>
 <enum_number>
 2
@@ -36,7 +48,7 @@ dead-fish.png
 </enum_number>
 
 <filename>
-dead-fish.png
+egg.png
 </filename>
 <textlines>
 яйца
@@ -51,7 +63,7 @@ dead-fish.png
 </enum_number>
 
 <filename>
-dead-fish.png
+butter.png
 </filename>
 <textlines>
 масло_сливочное
@@ -62,30 +74,19 @@ dead-fish.png
 </enum_number>
 
 <filename>
-dead-fish.png
-</filename>
-<textlines>
-молоко
-коровье_молоко
-молоко_коровье
-</textlines>
-<enum_number>
-6
-</enum_number>
-
-<filename>
-dead-fish.png
+oil.png
 </filename>
 <textlines>
 растительное_масло
 масло_растительное
+масло_подсолнечное
 </textlines>
 <enum_number>
 7
 </enum_number>
 
 <filename>
-dead-fish.png
+salt.png
 </filename>
 <textlines>
 соль
@@ -95,7 +96,7 @@ dead-fish.png
 </enum_number>
 
 <filename>
-dead-fish.png
+pepper.png
 </filename>
 <textlines>
 перец_черный

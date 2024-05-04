@@ -1,0 +1,15 @@
+CC=g++ -std=c++17
+CFLAGS=-c -Wall
+LDFLAGS=`pkg-config --cflags --libs gtk+-3.0` -lgtk-3 -lglib-2.0 -lpango-1.0 -lepoxy -lGL -lglut -lGLEW
+SOURCES=./Debug/TP_GTK ./src/TP_GTK.cpp ./src/IconParser.cpp ./src/IconNames.cpp ./src/Product.cpp ./src/ProductParser.cpp ./src/ProductsList.cpp ./src/Recipe.cpp ./src/RecipesList.cpp ./src/Note.cpp ./src/NotesList.cpp ./src/Products_tab_utils.cpp
+LIBS=gtk+-3.0` -lgtk-3 -lglib-2.0 -lpango-1.0 -lepoxy -lGL -lglut -lGLEW
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=TP_GTK
+
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@

@@ -23,10 +23,14 @@ Icon_Names::Icon_Names(std::string filename) {
 }
 
 
+extern std::string name_to_lower_case(std::string name);
 int Icon_Names::get_icon_id(std::string name){
 	unsigned long int i;
+	name = name_to_lower_case(name);
 	for (i = 0; i < this->names.size(); i++){
-		if (name == this->names[i])
+		if (this->names[i] == name)
+			return this->icon_id;
+		else if (this->names[i].find(name) == 0)
 			return this->icon_id;
 	}
 
@@ -36,8 +40,11 @@ int Icon_Names::get_icon_id(std::string name){
 
 bool Icon_Names::check_icon(std::string name){
 	long unsigned i;
+	name = name_to_lower_case(name);
 	for (i = 0; i < this->names.size(); i++){
 		if (this->names[i] == name)
+			return true;
+		else if (this->names[i].find(name) == 0)
 			return true;
 	}
 	return false;

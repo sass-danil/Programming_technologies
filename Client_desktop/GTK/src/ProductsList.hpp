@@ -24,13 +24,17 @@ class Products_List {
 
 		void add_product(Product* product);
 
+		void delete_product(Product* product);
+
 		void update_gui();
 
 		void print_into_console();
 
+		void print_into_file(const char* filename);
+
 		virtual ~Products_List();
 
-	private:
+	public:
 		std::vector<Product*> products;
 };
 

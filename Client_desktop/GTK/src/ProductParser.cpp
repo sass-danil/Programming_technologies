@@ -19,6 +19,7 @@ Product_Parser::Product_Parser() {
 
 
 void Product_Parser::parse_products(Products_List* list, const char *filename){
+	std::setlocale(LC_NUMERIC, "POSIX");
 	std::fstream f(filename);
 	std::cout << "Parsing products from file " << filename << std::endl;
 	if (!(f.is_open())){
@@ -87,6 +88,7 @@ void Product_Parser::parse_products(Products_List* list, const char *filename){
 		}
 		else if (buffer == "</products>"){
 			list->add_product(temp_product);
+			break;
 		}
 	}
 

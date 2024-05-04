@@ -26,6 +26,18 @@ GtkWidget* Icon_Parser::get_icon(int index){
 }
 
 
+GtkWidget* Icon_Parser::get_icon(std::string name){
+	unsigned long int i;
+	std::cout << "Searching icon for " << name << std::endl;
+	for (i = 0; i < this->icons_names.size(); i++){
+		if (this->icons_names[i]->check_icon(name))
+			return this->icons_names[i]->get_icon();
+	}
+	std::cout << "Not founded" << std::endl;
+	return this->icons_names[0]->get_icon();
+}
+
+
 int Icon_Parser::get_icon_name_id(std::string name){
 	unsigned long int i;
 	for(i = 0; i < this->icons_names.size(); i++){
