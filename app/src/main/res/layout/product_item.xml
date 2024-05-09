@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/product_img"
                 android:layout_width="45dp"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/milk"
                 app:srcCompat="@drawable/milk" />
@@ -70,11 +70,11 @@
 
             <ImageButton
                 android:id="@+id/product_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/product_setting"
-                app:srcCompat="@drawable/baseline_dehaze_24" />
+                app:srcCompat="@drawable/settings_icon" />
 
 
         </LinearLayout>

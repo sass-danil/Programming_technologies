@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/rectangle_111" />
 
     <TextView
-        android:id="@+id/filterTitile"
+        android:id="@+id/filterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
