@@ -15,10 +15,10 @@
 500.77
 </count>
 <add_date>
-4.5.2024
+6.5.2024
 </add_date>
 <death_date>
-30.5.2024
+6.7.2024
 </death_date>
 
 <product_name>
@@ -147,10 +147,10 @@
 200
 </count>
 <add_date>
-4.5.2024
+6.5.2024
 </add_date>
 <death_date>
-5.5.2024
+10.5.2024
 </death_date>
 
 <product_name>
