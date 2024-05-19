@@ -1,6 +1,7 @@
 package com.example.programtech.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
 
     private Context context;
     private List<Note> notes;
+    private OnNoteClickListener noteClickListener;
 
-    public NoteAdapter(Context context, List<Note> notes) {
+    public NoteAdapter(Context context, List<Note> notes, OnNoteClickListener noteClickListener) {
         this.context = context;
         this.notes = notes;
+        this.noteClickListener = noteClickListener;
     }
 
     @NonNull
@@ -48,11 +51,39 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             super(itemView);
             noteTitle = itemView.findViewById(R.id.note_title);
             noteContent = itemView.findViewById(R.id.note_content);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && noteClickListener != null) {
+                        noteClickListener.onNoteClick(position);
+                    }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && noteClickListener != null) {
+                        noteClickListener.onNoteLongClick(position);
+                    }
+                    return true;
+                }
+            });
         }
 
         public void bind(Note note) {
             noteTitle.setText(note.getTitle());
             noteContent.setText(note.getContent());
+            noteContent.setMaxLines(2);
+            noteContent.setEllipsize(TextUtils.TruncateAt.END);
         }
+    }
+
+    public interface OnNoteClickListener {
+        void onNoteClick(int position);
+        void onNoteLongClick(int position);
     }
 }
