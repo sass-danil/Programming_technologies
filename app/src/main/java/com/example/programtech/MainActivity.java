@@ -1,15 +1,10 @@
 package com.example.programtech;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +19,15 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import android.app.DatePickerDialog;
+import androidx.appcompat.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity implements FilterAdapter.FilterClickListener {
 
@@ -45,18 +49,17 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
         Button addProductButton = findViewById(R.id.addProductButton);
         addProductButton.setOnClickListener(v -> showAddProductDialog());
 
-        // Находим TextView для "Рецептов" и устанавливаем обработчик нажатия
+        // Initialize TextViews
         TextView recipesTextView = findViewById(R.id.Recipes);
+        TextView notesTextView = findViewById(R.id.Notes);
+
+        // Set click listeners for navigation
         recipesTextView.setOnClickListener(v -> {
-            // Переходим на страницу с рецептами
             Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
             startActivity(intent);
         });
 
-        // Находим TextView для "Заметок" и устанавливаем обработчик нажатия
-        TextView productsTextView = findViewById(R.id.Notes);
-        productsTextView.setOnClickListener(v -> {
-            // Переходим на страницу с заметками
+        notesTextView.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, NoteActivity.class);
             startActivity(intent);
         });
@@ -101,7 +104,15 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
     }
 
     private void sortByDate() {
-        Collections.sort(productList, (p1, p2) -> sortByDateAsc ? p1.getDate().compareTo(p2.getDate()) : p2.getDate().compareTo(p1.getDate()));
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Collections.sort(productList, (p1, p2) -> {
+            try {
+                return sortByDateAsc ? format.parse(p1.getDate()).compareTo(format.parse(p2.getDate())) : format.parse(p2.getDate()).compareTo(format.parse(p1.getDate()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        });
         productAdapter.notifyDataSetChanged();
         sortByDateAsc = !sortByDateAsc;
     }
