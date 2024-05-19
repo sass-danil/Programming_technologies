@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
         });
 
         notesTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+            Intent intent = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(intent);
         });
     }

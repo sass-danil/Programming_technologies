@@ -53,7 +53,7 @@ public class RecipeActivity extends AppCompatActivity {
         });
 
         notesTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(RecipeActivity.this, NoteActivity.class); // замените NotesActivity на вашу активность заметок
+            Intent intent = new Intent(RecipeActivity.this, NotesActivity.class); // замените NotesActivity на вашу активность заметок
             startActivity(intent);
         });
     }
