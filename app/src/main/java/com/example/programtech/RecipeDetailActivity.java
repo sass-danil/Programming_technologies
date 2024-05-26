@@ -1,25 +1,42 @@
 package com.example.programtech;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.programtech.adapter.RecipeAdapter;
+import com.example.programtech.model.Recipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    RecyclerView recipeRecycler;
+    RecipeAdapter recipeAdapter;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_detail);
+        setContentView(R.layout.activity_recipe);
 
-        TextView recipeNameTextView = findViewById(R.id.recipe_detail_name);
-        TextView recipeDescriptionTextView = findViewById(R.id.recipe_detail_description);
+        // Prepare recipe data
+        List<Recipe> recipeList = new ArrayList<>();
+        recipeList.add(new Recipe("Омлет", "Легко", getString(R.string.recipe_omelet)));
+        recipeList.add(new Recipe("Салат", "Средне", getString(R.string.recipe_salad)));
+        recipeList.add(new Recipe("Стейк", "Сложно", getString(R.string.recipe_steak)));
 
-        // Get the recipe details from the intent
-        String recipeName = getIntent().getStringExtra("recipe_name");
-        String recipeDescription = getIntent().getStringExtra("recipe_description");
-
-        // Set the recipe details to the TextViews
-        recipeNameTextView.setText(recipeName);
-        recipeDescriptionTextView.setText(recipeDescription);
+        // Setup RecyclerView for recipes
+        recipeRecycler = findViewById(R.id.recipeRecycler);
+        recipeRecycler.setLayoutManager(new LinearLayoutManager(this));
+        recipeAdapter = new RecipeAdapter(this, recipeList);
+        recipeRecycler.setAdapter(recipeAdapter);
     }
 }

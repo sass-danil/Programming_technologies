@@ -20,15 +20,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity android:name=".RecipeActivity" android:exported="true"/>
         <activity android:name=".NotesActivity" android:exported="true"/>
         <activity android:name=".AddNoteActivity"/>
         <activity android:name=".ViewNoteActivity"/>
         <activity android:name=".NoteDetailActivity"/>
+        <activity android:name=".RecipeDetailActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".UserProfileActivity" />
 
-        <activity android:name=".RecipeDetailActivity">
 
-        </activity>
+
+
+
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

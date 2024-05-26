@@ -24,6 +24,7 @@ import android.app.DatePickerDialog;
 import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -62,6 +63,15 @@ public class MainActivity extends AppCompatActivity implements FilterAdapter.Fil
         notesTextView.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(intent);
+        });
+
+        ImageView accountImageView = findViewById(R.id.imageView);
+        accountImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

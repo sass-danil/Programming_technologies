@@ -5,20 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NoteDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_NOTE_TITLE = "EXTRA_NOTE_TITLE";
-    public static final String EXTRA_NOTE_CONTENT = "EXTRA_NOTE_CONTENT";
-    public static final String EXTRA_NOTE_POSITION = "EXTRA_NOTE_POSITION";
+    public static final String EXTRA_NOTE_ID = "com.example.programtech.EXTRA_NOTE_ID";
+    public static final String EXTRA_NOTE_TITLE = "com.example.programtech.EXTRA_NOTE_TITLE";
+    public static final String EXTRA_NOTE_CONTENT = "com.example.programtech.EXTRA_NOTE_CONTENT";
+    public static final String EXTRA_NOTE_POSITION = "com.example.programtech.EXTRA_NOTE_POSITION";
 
     private EditText noteTitleEditText;
     private EditText noteContentEditText;
     private Button saveButton;
     private Button deleteButton;
-
+    private long noteId;
     private int notePosition;
 
     @Override
@@ -32,21 +32,24 @@ public class NoteDetailActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_NOTE_TITLE) && intent.hasExtra(EXTRA_NOTE_CONTENT) && intent.hasExtra(EXTRA_NOTE_POSITION)) {
-            String title = intent.getStringExtra(EXTRA_NOTE_TITLE);
-            String content = intent.getStringExtra(EXTRA_NOTE_CONTENT);
-            notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, -1);
+        noteId = intent.getLongExtra(EXTRA_NOTE_ID, -1);
+        String noteTitle = intent.getStringExtra(EXTRA_NOTE_TITLE);
+        String noteContent = intent.getStringExtra(EXTRA_NOTE_CONTENT);
+        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, -1);
 
-            noteTitleEditText.setText(title);
-            noteContentEditText.setText(content);
-        }
+        noteTitleEditText.setText(noteTitle);
+        noteContentEditText.setText(noteContent);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String title = noteTitleEditText.getText().toString();
+                String content = noteContentEditText.getText().toString();
+
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra(EXTRA_NOTE_TITLE, noteTitleEditText.getText().toString());
-                resultIntent.putExtra(EXTRA_NOTE_CONTENT, noteContentEditText.getText().toString());
+                resultIntent.putExtra(EXTRA_NOTE_ID, noteId);
+                resultIntent.putExtra(EXTRA_NOTE_TITLE, title);
+                resultIntent.putExtra(EXTRA_NOTE_CONTENT, content);
                 resultIntent.putExtra(EXTRA_NOTE_POSITION, notePosition);
                 setResult(RESULT_OK, resultIntent);
                 finish();

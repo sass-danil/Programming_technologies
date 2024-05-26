@@ -71,8 +71,6 @@
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -108,7 +106,6 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="25dp"
         android:text="Добавить заметку"
-        android:contentDescription="дОБАИТЬ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout" />

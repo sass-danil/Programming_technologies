@@ -1,7 +1,6 @@
 package com.example.programtech.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,17 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
 
     private Context context;
     private List<Note> notes;
-    private OnNoteClickListener noteClickListener;
+    private OnNoteClickListener listener;
 
-    public NoteAdapter(Context context, List<Note> notes, OnNoteClickListener noteClickListener) {
+    public interface OnNoteClickListener {
+        void onNoteClick(int position);
+        void onNoteLongClick(int position);
+    }
+
+    public NoteAdapter(Context context, List<Note> notes, OnNoteClickListener listener) {
         this.context = context;
         this.notes = notes;
-        this.noteClickListener = noteClickListener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,7 +38,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         Note note = notes.get(position);
-        holder.bind(note);
+        holder.bind(note, listener);
     }
 
     @Override
@@ -42,7 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         return notes.size();
     }
 
-    public class NotesViewHolder extends RecyclerView.ViewHolder {
+    public static class NotesViewHolder extends RecyclerView.ViewHolder {
 
         TextView noteTitle;
         TextView noteContent;
@@ -51,39 +55,26 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             super(itemView);
             noteTitle = itemView.findViewById(R.id.note_title);
             noteContent = itemView.findViewById(R.id.note_content);
+        }
+
+        public void bind(Note note, OnNoteClickListener listener) {
+            noteTitle.setText(note.getTitle());
+            noteContent.setText(note.getContent().length() > 100 ? note.getContent().substring(0, 100) + "..." : note.getContent());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && noteClickListener != null) {
-                        noteClickListener.onNoteClick(position);
-                    }
+                    listener.onNoteClick(getAdapterPosition());
                 }
             });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && noteClickListener != null) {
-                        noteClickListener.onNoteLongClick(position);
-                    }
+                    listener.onNoteLongClick(getAdapterPosition());
                     return true;
                 }
             });
         }
-
-        public void bind(Note note) {
-            noteTitle.setText(note.getTitle());
-            noteContent.setText(note.getContent());
-            noteContent.setMaxLines(2);
-            noteContent.setEllipsize(TextUtils.TruncateAt.END);
-        }
-    }
-
-    public interface OnNoteClickListener {
-        void onNoteClick(int position);
-        void onNoteLongClick(int position);
     }
 }
