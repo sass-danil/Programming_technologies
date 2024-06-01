@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.programtech.R;
 import com.example.programtech.RecipeDetailActivity;
 import com.example.programtech.model.Recipe;
+
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -34,7 +36,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
-        holder.bind(recipe);
+        holder.recipeTitle.setText(recipe.getName());
+        holder.recipeDifficulty.setText(recipe.getDifficulty());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RecipeDetailActivity.class);
+                intent.putExtra("RECIPE_TITLE", recipe.getName());
+                intent.putExtra("RECIPE_DIFFICULTY", recipe.getDifficulty());
+                intent.putExtra("RECIPE_CONTENT", recipe.getDescription());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -42,28 +56,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return recipes.size();
     }
 
-    public class RecipeViewHolder extends RecyclerView.ViewHolder {
-
-        TextView recipeName;
-        TextView recipeDifficulty;
-        ImageButton recipeButton;
+    static class RecipeViewHolder extends RecyclerView.ViewHolder {
+        TextView recipeTitle, recipeDifficulty;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeName = itemView.findViewById(R.id.recipe_name);
-            recipeDifficulty = itemView.findViewById(R.id.recipe_difficulty);
-            recipeButton = itemView.findViewById(R.id.recipe_button);
-        }
-
-        public void bind(Recipe recipe) {
-            recipeName.setText(recipe.getName());
-            recipeDifficulty.setText(recipe.getDifficulty());
-            recipeButton.setOnClickListener(v -> {
-                Intent intent = new Intent(context, RecipeDetailActivity.class);
-                intent.putExtra("recipe_name", recipe.getName());
-                intent.putExtra("recipe_description", recipe.getDescription());
-                context.startActivity(intent);
-            });
+            recipeTitle = itemView.findViewById(R.id.recipeTitle);
+            recipeDifficulty = itemView.findViewById(R.id.recipeDifficulty);
         }
     }
 }

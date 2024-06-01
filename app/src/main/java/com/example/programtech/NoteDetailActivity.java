@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NoteDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_NOTE_ID = "com.example.programtech.EXTRA_NOTE_ID";
-    public static final String EXTRA_NOTE_TITLE = "com.example.programtech.EXTRA_NOTE_TITLE";
-    public static final String EXTRA_NOTE_CONTENT = "com.example.programtech.EXTRA_NOTE_CONTENT";
-    public static final String EXTRA_NOTE_POSITION = "com.example.programtech.EXTRA_NOTE_POSITION";
+    public static final String EXTRA_NOTE_ID = "NOTE_ID";
+    public static final String EXTRA_NOTE_TITLE = "NOTE_TITLE";
+    public static final String EXTRA_NOTE_CONTENT = "NOTE_CONTENT";
+    public static final String EXTRA_NOTE_POSITION = "NOTE_POSITION";
 
     private EditText noteTitleEditText;
     private EditText noteContentEditText;

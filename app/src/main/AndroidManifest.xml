@@ -21,8 +21,6 @@
             </intent-filter>
         </activity>
 
-
-
         <activity android:name=".RecipeActivity" android:exported="true"/>
         <activity android:name=".NotesActivity" android:exported="true"/>
         <activity android:name=".AddNoteActivity"/>
@@ -32,11 +30,6 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".UserProfileActivity" />
-
-
-
-
-
 
         <meta-data
             android:name="preloaded_fonts"

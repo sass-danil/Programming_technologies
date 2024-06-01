@@ -1,5 +1,6 @@
 package com.example.programtech;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,17 +39,8 @@ public class NotesActivity extends AppCompatActivity implements NoteAdapter.OnNo
 
         notesRecycler = findViewById(R.id.notesRecycler);
         notesRecycler.setLayoutManager(new LinearLayoutManager(this));
-        notesAdapter = new NoteAdapter(this, noteList, this);
+        notesAdapter = new NoteAdapter(this, noteList);
         notesRecycler.setAdapter(notesAdapter);
-
-        Button addNoteButton = findViewById(R.id.addNoteButton);
-        addNoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NotesActivity.this, AddNoteActivity.class);
-                startActivityForResult(intent, ADD_NOTE_REQUEST);
-            }
-        });
 
         // Initialize TextViews
         TextView recipesTextView = findViewById(R.id.Products);
@@ -64,7 +57,14 @@ public class NotesActivity extends AppCompatActivity implements NoteAdapter.OnNo
             startActivity(intent);
         });
 
-
+        Button addNoteButton = findViewById(R.id.addNoteButton);
+        addNoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotesActivity.this, AddNoteActivity.class);
+                startActivityForResult(intent, ADD_NOTE_REQUEST);
+            }
+        });
 
         ImageView accountImageView = findViewById(R.id.imageView);
         accountImageView.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,16 @@ public class NotesActivity extends AppCompatActivity implements NoteAdapter.OnNo
 
     @Override
     public void onNoteLongClick(int position) {
-        noteList.remove(position);
-        notesAdapter.notifyItemRemoved(position);
+        new AlertDialog.Builder(this)
+                .setTitle("Удалить заметку")
+                .setMessage("Вы уверены, что хотите удалить эту заметку?")
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        noteList.remove(position);
+                        notesAdapter.notifyItemRemoved(position);
+                    }
+                })
+                .setNegativeButton("Нет", null)
+                .show();
     }
 }

@@ -23,10 +23,10 @@ public class AddNoteActivity extends AppCompatActivity {
         Button saveNoteButton = findViewById(R.id.saveNoteButton);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("NOTE_ID")) {
-            noteId = intent.getIntExtra("NOTE_ID", -1);
-            noteTitleEditText.setText(intent.getStringExtra("NOTE_TITLE"));
-            noteContentEditText.setText(intent.getStringExtra("NOTE_CONTENT"));
+        if (intent.hasExtra(NoteDetailActivity.EXTRA_NOTE_ID)) {
+            noteId = intent.getIntExtra(NoteDetailActivity.EXTRA_NOTE_ID, -1);
+            noteTitleEditText.setText(intent.getStringExtra(NoteDetailActivity.EXTRA_NOTE_TITLE));
+            noteContentEditText.setText(intent.getStringExtra(NoteDetailActivity.EXTRA_NOTE_CONTENT));
         }
 
         saveNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -37,9 +37,9 @@ public class AddNoteActivity extends AppCompatActivity {
 
                 if (!title.isEmpty() && !content.isEmpty()) {
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("NOTE_ID", noteId);
-                    resultIntent.putExtra("NOTE_TITLE", title);
-                    resultIntent.putExtra("NOTE_CONTENT", content);
+                    resultIntent.putExtra(NoteDetailActivity.EXTRA_NOTE_ID, noteId);
+                    resultIntent.putExtra(NoteDetailActivity.EXTRA_NOTE_TITLE, title);
+                    resultIntent.putExtra(NoteDetailActivity.EXTRA_NOTE_CONTENT, content);
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 }
